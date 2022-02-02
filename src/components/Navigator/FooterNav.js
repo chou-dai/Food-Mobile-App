@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -8,7 +8,7 @@ import Calendar from '../../Calendar';
 import Gallery from '../../Gallery';
 import Setting from '../../Setting';
 import { withTheme } from 'react-native-elements';
-import { Alert, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FAB } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -17,19 +17,20 @@ import CameraScreen from '../../CameraScreen';
 const Tab = createBottomTabNavigator();
 
 const FooterNav = (props) => {
+  const [isCamera, setIsCamera] = useState(false);
+  const [top, setTop] = useState(-10);
+  const [opacity, setOpacity] = useState(1);
 
-  const handlePress = () => {
-    navigation.navigate('camera')
-    // Alert.alert(
-    //   'カメラ処理',
-    //   'カメラを起動して写真を追加',
-    //   [
-    //     {text: 'Cancel'},
-    //     {text: 'OK'},
-    //   ],
-    //   { cancelable: false }
-    // )    
-  }
+  useEffect(() => {
+    if(isCamera) {
+      setTop(0);
+      setOpacity(0);
+    }
+    else {
+      setTop(-10);
+      setOpacity(1);
+    }
+  }, [isCamera]);
 
   return (
     <NavigationContainer>
@@ -51,7 +52,9 @@ const FooterNav = (props) => {
           tabBarShowLabel: false,
         }}
       >
-        <Tab.Screen name="home" component={ Home }
+        <Tab.Screen
+          name="home" component={ Home }
+          listeners={{tabPress: () => setIsCamera(false)}}
           options={{
             tabBarLabel: 'ホーム',
             tabBarIcon: ({ color }) => (
@@ -64,7 +67,9 @@ const FooterNav = (props) => {
             )
           }}
         />
-        <Tab.Screen name="calendar" component={ Calendar } 
+        <Tab.Screen
+          name="calendar" component={ Calendar }
+          listeners={{tabPress: () => setIsCamera(false)}}
           options={{
             tabBarLabel: 'カレンダー',
             tabBarIcon: ({ color }) => (
@@ -77,24 +82,30 @@ const FooterNav = (props) => {
             )
           }}
         />
-        <Tab.Screen name="camera" component={ CameraScreen }
+        <Tab.Screen
+          name="camera" component={ CameraScreen }
           options = {({ navigation }) => ({
             tabBarLabel: 'カメラ',
-            tabBarButton: (props) => (
+            tabBarButton: () => (
               <LinearGradient
                 colors={['rgba(240,152,25,1)', 'rgba(255,88,88,1)']} 
                 start={{x: 0.0, y: 1}} 
                 end={{x: 1, y: 1}}
-                style={styles.linearGradient}
+                style={[styles.linearGradient, {top: top, opacity: opacity}]}
               >
-                <FAB style={styles.fab} icon="camera"
-                  onPress={() => navigation.navigate('camera')}
+                <FAB style={styles.fab} icon="camera" color="#ddd"
+                  onPress={() => {
+                    navigation.navigate('camera');
+                    setIsCamera(true)
+                  }}
                 />
               </LinearGradient>
             )
           })}
         />
-        <Tab.Screen name="gallery" component={ Gallery }
+        <Tab.Screen
+          name="gallery" component={ Gallery }
+          listeners={{tabPress: () => setIsCamera(false)}}
           options={{
             tabBarLabel: 'ギャラリー',
             tabBarIcon: ({ color }) => (
@@ -107,7 +118,9 @@ const FooterNav = (props) => {
             )
           }}
         />
-        <Tab.Screen name="setting" component={ Setting }
+        <Tab.Screen
+          name="setting" component={ Setting }
+          listeners={{tabPress: () => setIsCamera(false)}}
           options={{
             tabBarLabel: '設定',
             tabBarIcon: ({ color }) => (

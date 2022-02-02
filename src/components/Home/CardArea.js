@@ -67,7 +67,10 @@ const styles = StyleSheet.create({
 const list = [
   {
     key: 1,
-    url: require('../../../assets/test/1.jpeg'),
+    url: require('../../../assets/test/5.jpeg'),
+    // key: 1,
+    // url: {uri: 'file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg'},
+  
   },
   {
     key: 2,

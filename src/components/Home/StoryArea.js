@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { withTheme } from 'react-native-elements';
 
 import InstaStory from 'react-native-insta-story';
@@ -45,22 +45,38 @@ const data = [
   {
     user_id: 1,
     user_image: require('../../../assets/test/5.jpeg'),
-    user_name: "test",
+    user_name: "Test User",
     stories: [{
-      story_id: 1,
-      story_image: require('../../../assets/test/5.jpeg'),
-      swipeText:'Custom swipe text for this story',
+        story_id: 1,
+        story_image: require('../../../assets/test/5.jpeg'),
+        swipeText:'Custom swipe text for this story',
     }]
+    // user_id: 1,
+    // user_image: {uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg"},
+    // user_name: "test",
+    // stories: [{
+    //   story_id: 1,
+    //   story_image: {uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg"},
+    //   swipeText:'Custom swipe text for this story',
+    // }]
   },
   {
     user_id: 2,
-    user_image: require('../../../assets/test/2.jpeg'),
+    user_image: require('../../../assets/test/5.jpeg'),
     user_name: "Test User",
     stories: [{
-      story_id: 1,
-      story_image: require('../../../assets/test/1.jpeg'),
-      swipeText:'Custom swipe text for this story',
+        story_id: 1,
+        story_image: require('../../../assets/test/5.jpeg'),
+        swipeText:'Custom swipe text for this story',
     }]
+    // user_id: 2,
+    // user_image: {uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg"},
+    // user_name: "test",
+    // stories: [{
+    //   story_id: 1,
+    //   story_image: {uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg"},
+    //   swipeText:'Custom swipe text for this story',
+    // }]
   },
   {
     user_id: 3,
@@ -68,7 +84,7 @@ const data = [
     user_name: "Test User",
     stories: [{
         story_id: 1,
-        story_image: require('../../../assets/test/6.jpeg'),
+        story_image: require('../../../assets/test/1.jpeg'),
         swipeText:'Custom swipe text for this story',},
       {
         story_id: 2,

@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 const list = [
   {
     key: 1,
-    url: require('../../../assets/test/5.jpeg'),
+    url: {uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg"},
   },
   {
     key: 2,
@@ -53,7 +53,7 @@ const list = [
   },
   {
     key: 5,
-    url: require('../../../assets/test/9.jpeg'),
+    url: {uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg"},
   },
   {
     key: 6,
