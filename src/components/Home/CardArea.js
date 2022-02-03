@@ -6,7 +6,7 @@ import CardParts from './CardParts';
 const CardArea = (props) => {
 
   const handleNavigation = () => {
-    props.navigation.navigate('gallery')
+    props.navigation.navigate('gallery');
   }
 
   return (

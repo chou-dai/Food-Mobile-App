@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { withTheme } from 'react-native-elements';
-
 import InstaStory from 'react-native-insta-story';
+import { getHomeStoryDataSet } from '../../api/database';
 
 const StoryArea = (props) => {
+  const data = []
+
+  useEffect(() => {
+    props.navigation.addListener('focus', () => {
+      getHomeStoryDataSet(data)
+    });
+  }, [props.navigation]);
+  
   return (
     <View style={[
       styles.container,
@@ -19,7 +27,7 @@ const StoryArea = (props) => {
           color: props.theme.colors.text,
           fontSize: 12,
         }}
-        style={{marginTop: 30}}
+        style={{marginTop: 30, left:0}}
       />
     </View>
   )
@@ -41,7 +49,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const data = [
+const testData = [
   {
     user_id: 1,
     user_image: require('../../../assets/test/5.jpeg'),
@@ -51,32 +59,16 @@ const data = [
         story_image: require('../../../assets/test/5.jpeg'),
         swipeText:'Custom swipe text for this story',
     }]
-    // user_id: 1,
-    // user_image: {uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg"},
-    // user_name: "test",
-    // stories: [{
-    //   story_id: 1,
-    //   story_image: {uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg"},
-    //   swipeText:'Custom swipe text for this story',
-    // }]
   },
   {
     user_id: 2,
-    user_image: require('../../../assets/test/5.jpeg'),
+    user_image: require('../../../assets/test/3.jpeg'),
     user_name: "Test User",
     stories: [{
         story_id: 1,
         story_image: require('../../../assets/test/5.jpeg'),
         swipeText:'Custom swipe text for this story',
     }]
-    // user_id: 2,
-    // user_image: {uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg"},
-    // user_name: "test",
-    // stories: [{
-    //   story_id: 1,
-    //   story_image: {uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg"},
-    //   swipeText:'Custom swipe text for this story',
-    // }]
   },
   {
     user_id: 3,

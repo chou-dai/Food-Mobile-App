@@ -1,6 +1,7 @@
 import React from 'react';
 import { FooterNav } from './components/Navigator';
 import { ThemeProvider } from 'react-native-elements';
+import { initializeDatabase } from './api/database';
 
 const theme = {
 	colors: {
@@ -12,6 +13,7 @@ const theme = {
 }
  
 export default function App() {
+	initializeDatabase();
 	return (
 		<ThemeProvider theme={theme}>
 			<FooterNav />

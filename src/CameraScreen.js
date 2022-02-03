@@ -3,9 +3,10 @@ import { StyleSheet, View, TouchableOpacity, SafeAreaView, Image } from 'react-n
 import { Camera } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
 import * as MediaLibrary from 'expo-media-library';
+import { firstSaveDatabase, showDatabase } from './api/database';
 
 
-export default function CameraScreen() {
+export default window.onload = function CameraScreen() {
   const [hasPermission, sertHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
@@ -25,9 +26,14 @@ export default function CameraScreen() {
       const N=16
       const id = Array.from(Array(N)).map(()=>S[Math.floor(Math.random()*S.length)]).join('')
 
+      const date = new Date();
+      const today = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+      
       setPicture(image.uri);
-      console.log(image.uri);
-      console.log(id);
+
+      firstSaveDatabase(id, image.uri, today);
+      // showDatabase();
+
       const { status } = await MediaLibrary.requestPermissionsAsync();
       if (status === 'granted') {
         // const asset = await MediaLibrary.createAssetAsync(image.uri);
@@ -46,7 +52,7 @@ export default function CameraScreen() {
             }}
           />
         ) : (
-          <Image source={{ uri: "file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg" }} style={{ flex: 1 }} />
+          <Image source={{ uri: picture }} style={{ flex: 1 }} />
         )}
       </View>
       <View

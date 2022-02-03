@@ -20,7 +20,7 @@ const Home = (props) => {
       >
         <View style={{height:160, opacity:0}}/>
         <SearchArea/>
-        <StoryArea />
+        <StoryArea navigation={props.navigation} />
         <CardArea navigation={props.navigation} />
         <HomeCalendarArea navigation={props.navigation} />
       </Animated.ScrollView>
