@@ -42,7 +42,7 @@ export const getHomeStoryDataSet = (set) => {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "select * from foods;",
+        "SELECT * FROM foods;",
         [],
         (_, data) => {
           set.length = 0;
@@ -61,8 +61,55 @@ export const getHomeStoryDataSet = (set) => {
           }
         },
         () => {
-          console.log("Show Error");
-          false;
+          console.log("Select Error");
+        }
+      );
+    }
+  );
+}
+
+export const getHomeCardDataSet = (set) => {
+  db.transaction(
+    (tx) => {
+      tx.executeSql(
+        "SELECT image FROM foods;",
+        [],
+        (_, data) => {
+          set.length = 0;
+          for (let i = 0; i < data.rows.length; i++) {
+            const dataList = {
+              key: i+1,
+              url: {uri: data.rows.item(i).image},
+            }
+            set.push(dataList)
+          }
+        },
+        () => {
+          console.log("Select Error");
+        }
+      );
+    }
+  );
+}
+
+export const getGalleryDataSet = (set) => {
+  db.transaction(
+    (tx) => {
+      tx.executeSql(
+        "SELECT image FROM foods;",
+        [],
+        (_, data) => {
+          set.length = 0;
+          for (let i = 0; i < data.rows.length; i++) {
+            const dataList = {
+              key: i+1,
+              url: {uri: data.rows.item(i).image},
+            }
+            set.push(dataList)
+          }
+        },
+        () => {
+          console.log("Select Error");
         }
       );
     }

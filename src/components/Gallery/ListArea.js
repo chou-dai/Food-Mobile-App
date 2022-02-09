@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View, Text, Button } from 'react-native';
 import { withTheme } from 'react-native-elements';
+import { getGalleryDataSet } from '../../api/database';
 import ListParts from './ListParts';
 
 const ListArea = (props) => {
+
+  const data = [{}];
+
+  useEffect(() => {
+    props.navigation.addListener('focus', () => {
+      getGalleryDataSet(data)
+    });
+  }, );
 
   return (
     <View style={[
@@ -12,7 +21,7 @@ const ListArea = (props) => {
     ]}>
       <FlatList
         contentContainerStyle={styles.flatList}
-        data={list}
+        data={data}
         renderItem={({item}) => <ListParts key={item.key} url={item.url}/>}
         numColumns={3}
       />

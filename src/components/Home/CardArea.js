@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View, Text } from 'react-native';
 import { withTheme } from 'react-native-elements';
+import { getHomeCardDataSet } from '../../api/database';
 import CardParts from './CardParts';
 
 const CardArea = (props) => {
+  const data = [{}];
+
+  useEffect(() => {
+    props.navigation.addListener('focus', () => {
+      getHomeCardDataSet(data)
+    });
+  }, );
 
   const handleNavigation = () => {
     props.navigation.navigate('gallery');
@@ -25,8 +33,9 @@ const CardArea = (props) => {
       </View>
       <FlatList
         style={styles.flatList}
-        data={list}
-        renderItem={({item}) => <CardParts key={item.key} url={item.url}/>}
+        data={data}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => <CardParts url={item.url}/>}r
         horizontal={true}
       />
     </View>
@@ -64,13 +73,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const list = [
+const testData = [
   {
     key: 1,
     url: require('../../../assets/test/5.jpeg'),
-    // key: 1,
-    // url: {uri: 'file:///var/mobile/Containers/Data/Application/27A1187D-B576-49BD-BEA3-6B5096079AA8/Library/Caches/ExponentExperienceData/%2540anonymous%252Ffood_app-946f831a-e9ea-4c1c-919d-76bc4cbf9306/Camera/6EBEDB6D-48F6-4850-B640-92A665657D7B.jpg'},
-  
   },
   {
     key: 2,

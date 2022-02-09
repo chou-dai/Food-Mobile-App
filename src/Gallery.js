@@ -10,7 +10,7 @@ const Gallery = (props) => {
       {backgroundColor: props.theme.colors.base}
     ]}>
       <SearchArea />
-      <ListArea />
+      <ListArea navigation={props.navigation} />
     </View>
   );
 }

@@ -5,7 +5,7 @@ import InstaStory from 'react-native-insta-story';
 import { getHomeStoryDataSet } from '../../api/database';
 
 const StoryArea = (props) => {
-  const data = []
+  const data = [{}];
 
   useEffect(() => {
     props.navigation.addListener('focus', () => {
