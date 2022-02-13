@@ -1,14 +1,13 @@
 import * as SQLite from 'expo-sqlite';
-import * as FileSystem from 'expo-file-system';
 
 const db = SQLite.openDatabase("database.db");
 
 export const initializeDatabase = () => {
-  // console.log(FileSystem.documentDirectory + "SQLite/");
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS foods (id TEXT primary key not null, image TEXT, date TEXT);",
+        "CREATE TABLE IF NOT EXISTS foods (id TEXT primary key not null,"
+          + "storyIconImage TEXT, storyImage TEXT, galleryImage TEXT, date TEXT);",
         null,
         () => {
         },
@@ -21,12 +20,12 @@ export const initializeDatabase = () => {
   );
 }
 
-export const firstSaveDatabase = (id, image, date) => {
+export const firstSaveDatabase = (id, storyIconImage, storyImage, galleryImage, date) => {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "INSERT INTO foods (id, image, date) VALUES (?, ?, ?);",
-        [id, image, date],
+        "INSERT INTO foods (id, storyIconImage, storyImage, galleryImage, date) VALUES (?, ?, ?, ?, ?);",
+        [id, storyIconImage, storyImage, galleryImage, date],
         () => {
         },
         (e) => {
@@ -41,19 +40,20 @@ export const firstSaveDatabase = (id, image, date) => {
 export const getHomeStoryDataSet = (set) => {
   db.transaction(
     (tx) => {
-      tx.executeSql(
+       tx.executeSql(
         "SELECT * FROM foods;",
         [],
         (_, data) => {
           set.length = 0;
           for (let i = 0; i < data.rows.length; i++) {
+            const date = data.rows.item(i).date.split('-');
             const dataList = {
               user_id: i+1,
-              user_image: {uri: data.rows.item(i).image},
-              user_name: data.rows.item(i).date,
+              user_image: {uri: data.rows.item(i).storyIconImage},
+              user_name: date[1] + "月" + date[2] + "日",
               stories: [{
                   story_id: i+1,
-                  story_image: {uri: data.rows.item(i).image},
+                  story_image: {uri: data.rows.item(i).storyImage},
                   swipeText: data.rows.item(i).date,
               }]
             }
@@ -68,21 +68,22 @@ export const getHomeStoryDataSet = (set) => {
   );
 }
 
-export const getHomeCardDataSet = (set) => {
+export const getHomeCardDataSet = (setData) => {
+  const dataSet = [];
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "SELECT image FROM foods;",
+        "SELECT galleryImage FROM foods;",
         [],
         (_, data) => {
-          set.length = 0;
-          for (let i = 0; i < data.rows.length; i++) {
-            const dataList = {
-              key: i+1,
-              url: {uri: data.rows.item(i).image},
-            }
-            set.push(dataList)
-          }
+         for (let i = 0; i < data.rows.length; i++) {
+           const dataList = {
+             key: i+1,
+             url: {uri: data.rows.item(i).galleryImage},
+           }
+           dataSet.push(dataList)
+         }
+          setData(dataSet);
         },
         () => {
           console.log("Select Error");
@@ -90,23 +91,24 @@ export const getHomeCardDataSet = (set) => {
       );
     }
   );
-}
+};
 
-export const getGalleryDataSet = (set) => {
+export const getGalleryDataSet = (setData) => {
+  const dataSet = [];
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "SELECT image FROM foods;",
+        "SELECT galleryImage FROM foods;",
         [],
         (_, data) => {
-          set.length = 0;
-          for (let i = 0; i < data.rows.length; i++) {
-            const dataList = {
-              key: i+1,
-              url: {uri: data.rows.item(i).image},
-            }
-            set.push(dataList)
-          }
+         for (let i = 0; i < data.rows.length; i++) {
+           const dataList = {
+             key: i+1,
+             url: {uri: data.rows.item(i).galleryImage},
+           }
+           dataSet.push(dataList)
+         }
+          setData(dataSet);
         },
         () => {
           console.log("Select Error");
@@ -114,7 +116,7 @@ export const getGalleryDataSet = (set) => {
       );
     }
   );
-}
+};
 
 export const showDatabase = () => {
   db.transaction(

@@ -4,6 +4,7 @@ import { Camera } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
 import * as MediaLibrary from 'expo-media-library';
 import { firstSaveDatabase, showDatabase } from './api/database';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 
 export default window.onload = function CameraScreen() {
@@ -18,9 +19,23 @@ export default window.onload = function CameraScreen() {
     })();
   }, []);
 
+  const resizeImage = async (imageUri, width) => {
+    const result = await ImageManipulator.manipulateAsync(
+      imageUri,
+      // width or height のみの場合は、アスペクトを保持したままリサイズする
+      [{ resize: { width: width } }],
+      {
+        compress: 0.1,
+        format: ImageManipulator.SaveFormat.PNG,
+      }
+    );
+    return result.uri;
+  };
+
   const takePicture = async () => {
     if (camera) {
       const image = await camera.takePictureAsync();
+      setPicture(image.uri);
 
       const S="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
       const N=16
@@ -29,9 +44,11 @@ export default window.onload = function CameraScreen() {
       const date = new Date();
       const today = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
       
-      setPicture(image.uri);
+      const storyIconImage = await resizeImage(image.uri, 300);
+      const storyImage = await resizeImage(image.uri, 800);
+      const galleryImage = await resizeImage(image.uri, 400);
 
-      firstSaveDatabase(id, image.uri, today);
+      firstSaveDatabase(id, storyIconImage, storyImage, galleryImage, today);
       // showDatabase();
 
       const { status } = await MediaLibrary.requestPermissionsAsync();

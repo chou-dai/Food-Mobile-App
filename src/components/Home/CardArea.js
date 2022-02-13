@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import { FlatList, StyleSheet, View, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View, Text, Image } from 'react-native';
 import { withTheme } from 'react-native-elements';
 import { getHomeCardDataSet } from '../../api/database';
 import CardParts from './CardParts';
 
 const CardArea = (props) => {
-  const data = [{}];
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     props.navigation.addListener('focus', () => {
-      getHomeCardDataSet(data)
+      getHomeCardDataSet(setData);
     });
-  }, );
+  }, [props.navigation]);
 
   const handleNavigation = () => {
     props.navigation.navigate('gallery');
@@ -35,7 +35,7 @@ const CardArea = (props) => {
         style={styles.flatList}
         data={data}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) => <CardParts url={item.url}/>}r
+        renderItem={({item}) => <CardParts url={item.url}/>}
         horizontal={true}
       />
     </View>
