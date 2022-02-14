@@ -30,10 +30,13 @@
     "react-native-material-ripple": "^0.9.1",
     "react-native-paper": "^4.9.2",
     "react-native-safe-area-context": "3.3.2",
+    "react-native-simple-dialogs": "^1.4.0",
     "react-native-story": "^0.1.3",
+    "react-native-swipe-gestures": "^1.0.5",
     "react-native-swiper": "^1.6.0",
     "react-native-vector-icons": "^8.1.0",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "react-native-gesture-handler": "~1.10.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

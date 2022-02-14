@@ -1,18 +1,22 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { withTheme } from 'react-native-elements';
 
-const CalendarParts = () => {
+const CalendarParts = (props) => {
   return (
     <View>
       <Calendar
         style={styles.Calendar}
         monthFormat={'yyyy年 M月'}
+        hideArrows={true}
+        disableAllTouchEventsForDisabledDays={true}
         theme={{
           calendarBackground: "rgba(0,0,0,0)",
-          monthTextColor: '#00adf5',
+          monthTextColor: props.theme.colors.main,
+          todayTextColor: props.theme.colors.main,
           dayTextColor: '#d9e1e8',
-          textDisabledColor: '#2d4150'
+          textDisabledColor: "rgba(239,129,15,0.2)"
         }}
       />
     </View>
@@ -26,7 +30,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     marginTop: 7,
     borderRadius: 5,
-    backgroundColor: '#222',
+    backgroundColor: 'rgba(255,255,255,0.1)',
   },
 });
 
@@ -38,4 +42,4 @@ LocaleConfig.locales.jp = {
 }
 LocaleConfig.defaultLocale = 'jp';
 
-export default CalendarParts;
+export default withTheme(CalendarParts);

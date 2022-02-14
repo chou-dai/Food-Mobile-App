@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import Ripple from 'react-native-material-ripple';
 
 const ListParts = (props) => {
+
+  const handleOpen = () => {
+    props.setId(props.item.id);
+    props.setOpen(true);
+  }
+
   return (
-    <View style={[
-      styles.card,
-    ]}>
-      <Ripple style={styles.ripple}>
+    <View style={styles.card}>
+      <Ripple style={styles.ripple}
+        onPress={handleOpen}
+      >
         <Image
           style={styles.image}
-          source={props.url}
+          source={props.item.url}
         />
       </Ripple>
     </View>
@@ -23,7 +29,6 @@ const styles = StyleSheet.create({
     height: (width-10)/3+10,
     width: (width-10)/3,
     margin: 1,
-    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -35,7 +35,7 @@ const CardArea = (props) => {
         style={styles.flatList}
         data={data}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) => <CardParts url={item.url}/>}
+        renderItem={({item}) => <CardParts item={item}/>}
         horizontal={true}
       />
     </View>

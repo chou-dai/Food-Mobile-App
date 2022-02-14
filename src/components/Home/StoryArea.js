@@ -9,7 +9,7 @@ const StoryArea = (props) => {
 
   useEffect(() => {
     props.navigation.addListener('focus', () => {
-      getHomeStoryDataSet(data)
+      getHomeStoryDataSet(data);
     });
   }, [props.navigation]);
   

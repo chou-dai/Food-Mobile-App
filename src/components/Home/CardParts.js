@@ -5,13 +5,11 @@ import Ripple from 'react-native-material-ripple';
 const CardParts = (props) => {
   
   return (
-    <View style={[
-      styles.card,
-    ]}>
+    <View style={styles.card}>
       <Ripple style={styles.ripple}>
         <Image
           style={styles.image}
-          source={props.url}
+          source={props.item.url}
         />
       </Ripple>
     </View>

@@ -48,11 +48,11 @@ export const getHomeStoryDataSet = (set) => {
           for (let i = 0; i < data.rows.length; i++) {
             const date = data.rows.item(i).date.split('-');
             const dataList = {
-              user_id: i+1,
+              user_id: data.rows.item(i).id,
               user_image: {uri: data.rows.item(i).storyIconImage},
               user_name: date[1] + "月" + date[2] + "日",
               stories: [{
-                  story_id: i+1,
+                  story_id: data.rows.item(i).id,
                   story_image: {uri: data.rows.item(i).storyImage},
                   swipeText: data.rows.item(i).date,
               }]
@@ -73,16 +73,16 @@ export const getHomeCardDataSet = (setData) => {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "SELECT galleryImage FROM foods;",
+        "SELECT id, galleryImage FROM foods;",
         [],
         (_, data) => {
-         for (let i = 0; i < data.rows.length; i++) {
-           const dataList = {
-             key: i+1,
-             url: {uri: data.rows.item(i).galleryImage},
-           }
-           dataSet.push(dataList)
-         }
+          for (let i = 0; i < data.rows.length; i++) {
+            const dataList = {
+              id: data.rows.item(i).id,
+              url: {uri: data.rows.item(i).galleryImage},
+            }
+            dataSet.push(dataList)
+          }
           setData(dataSet);
         },
         () => {
@@ -98,16 +98,16 @@ export const getGalleryDataSet = (setData) => {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "SELECT galleryImage FROM foods;",
+        "SELECT id, galleryImage FROM foods;",
         [],
         (_, data) => {
-         for (let i = 0; i < data.rows.length; i++) {
-           const dataList = {
-             key: i+1,
-             url: {uri: data.rows.item(i).galleryImage},
-           }
-           dataSet.push(dataList)
-         }
+          for (let i = 0; i < data.rows.length; i++) {
+            const dataList = {
+              id: data.rows.item(i).id,
+              url: {uri: data.rows.item(i).galleryImage},
+            }
+            dataSet.push(dataList)
+          }
           setData(dataSet);
         },
         () => {
@@ -117,6 +117,30 @@ export const getGalleryDataSet = (setData) => {
     }
   );
 };
+
+export const getDetailDataSet = (id, setData) => {
+  db.transaction(
+    (tx) => {
+      tx.executeSql(
+        "SELECT * FROM foods WHERE id = ?;",
+        [id],
+        (_, data) => {
+          const date = data.rows.item(0).date.split('-');
+          const dataList = {
+            id: data.rows.item(0).id,
+            icon: {uri: data.rows.item(0).storyIconImage},
+            date: date[1] + "月" + date[2] + "日",
+            url: {uri: data.rows.item(0).storyImage},
+          }
+          setData(dataList);
+        },
+        () => {
+          console.log("Select Error");
+        }
+      );
+    }
+  );
+}
 
 export const showDatabase = () => {
   db.transaction(
