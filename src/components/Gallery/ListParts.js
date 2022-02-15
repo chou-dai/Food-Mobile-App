@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, Image, StyleSheet, View } from 'react-native';
-import Ripple from 'react-native-material-ripple';
+import { Dimensions, Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 
 const ListParts = (props) => {
 
@@ -11,14 +10,9 @@ const ListParts = (props) => {
 
   return (
     <View style={styles.card}>
-      <Ripple style={styles.ripple}
-        onPress={handleOpen}
-      >
-        <Image
-          style={styles.image}
-          source={props.item.url}
-        />
-      </Ripple>
+      <TouchableOpacity style={styles.touch} activeOpacity={0.8} onPress={handleOpen}>
+        <Image style={styles.image} source={props.item.url}/>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -32,7 +26,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  ripple: {
+  touch: {
     height: '100%',
     width: '100%'
   },

@@ -9,8 +9,8 @@ const Calendar = (props) => {
       styles.container,
       {backgroundColor: props.theme.colors.base}
     ]}>
-      <CalendarArea />
-      <ColumnArea />
+      <CalendarArea navigation={props.navigation}/>
+      <ColumnArea navigation={props.navigation}/>
     </View>
   );
 }

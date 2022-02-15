@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { withTheme } from 'react-native-elements';
+import { getCalendarMarkSet } from '../../api/database';
 
 const CalendarParts = (props) => {
+  const [markData, setMarkData] = useState(null);
+
+  useEffect(() => {
+    props.navigation.addListener('focus', () => {
+      getCalendarMarkSet(setMarkData, 'gray');
+    });
+  }, [props.navigation]);
+
   return (
     <View>
       <Calendar
         style={styles.Calendar}
         monthFormat={'yyyy年 M月'}
         hideArrows={true}
+        markedDates={markData}
         disableAllTouchEventsForDisabledDays={true}
         theme={{
           calendarBackground: "rgba(0,0,0,0)",

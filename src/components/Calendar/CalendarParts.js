@@ -1,31 +1,54 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import { Calendar, CalendarList, LocaleConfig } from 'react-native-calendars';
+import { CalendarList, LocaleConfig } from 'react-native-calendars';
+import { withTheme } from 'react-native-elements';
+import { getCalendarMarkSet } from '../../api/database';
 
-const CalendarParts = () => {
+const CalendarParts = (props) => {
+  const [markData, setMarkData] = useState(null);
+
+  useEffect(() => {
+    props.navigation.addListener('focus', () => {
+      getCalendarMarkSet(setMarkData, 'green');
+    });
+  }, [props.navigation]);
+  
+
+  const handleMonth = (data) => {
+    // console.log(data[0].year + '-' + data[0].month);
+  }
+  const handleDay = (data) => {
+    // console.log(data.year + '-' + data.month + '-' + data.day);
+  }
+
   return (
     <View style={styles.container}>
       <CalendarList
-        markedDates={{
-          '2021-10-31': {selected: true, marked: true, selectedColor: 'blue'},
-          '2021-10-24': {selected: true, marked: true, selectedColor: 'blue'},
-          '2021-10-17': {marked: true},
-          '2021-10-18': {marked: true, dotColor: 'red', activeOpacity: 0},
-          '2021-10-19': {disabled: true, disableTouchEvent: true}
-        }}
-        style={styles.Calendar}
+        onVisibleMonthsChange={handleMonth}
+        onDayPress={handleDay}
+        markedDates={markData}
+        style={styles.calendar}
         horizontal={true}
         pagingEnabled={true}
         monthFormat={'yyyy年 M月'}
+        headerStyle={{height:80}}
         theme={{
           calendarBackground: "rgba(0,0,0,0)",
-          monthTextColor: '#00adf5',
-          dayTextColor: '#d9e1e8',
-          textDisabledColor: '#2d4150',
-          'stylesheet.day.period': {
-            base : {
-              innerHeight: 0,
+          monthTextColor: props.theme.colors.text,
+          textMonthFontWeight: '600',
+          todayTextColor: "white",
+          todayBackgroundColor: 'rgba(0,0,0,0.05)',
+          dayTextColor: props.theme.colors.text,
+          textDayFontWeight: '500',
+          textSectionTitleColor: props.theme.colors.text,
+          textDayHeaderFontWeight: '500',
+          'stylesheet.day.basic':{
+            'base':{
+              marginTop: -6,
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
             }
           }
         }}
@@ -39,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 32,
   },
-  Calendar: {
+  calendar: {
     width: width,
   },
 });
@@ -52,4 +75,4 @@ LocaleConfig.locales.jp = {
 }
 LocaleConfig.defaultLocale = 'jp';
 
-export default CalendarParts;
+export default withTheme(CalendarParts);

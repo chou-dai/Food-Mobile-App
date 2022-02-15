@@ -1,27 +1,34 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { withTheme } from 'react-native-elements';
 
 const ColumnParts = (props) => {
 
-  let top = 0;
-  if(props.id == 1) top=408;
+  const handleOpen = () => {
+    alert(props.item.id);
+  }
 
   return (
-    <View style={[
-      styles.card,
-      {
-        backgroundColor: '#666',
-        marginTop: top,
-      },
-    ]}>
-      <LinearGradient
-        colors={['rgba(240,152,25,1)', 'rgba(255,88,88,1)']} 
-        start={{x: 0.0, y: 1}} 
-        end={{x: 1, y: 1}}
-        style={styles.linearGradient}
-      ></LinearGradient>
-    </View>
+    <TouchableOpacity activeOpacity={0.8} onPress={handleOpen}>
+      <View style={[
+        styles.card,
+        {backgroundColor: '#666', marginTop: (props.item.num===1 ? 360 : 0)},
+      ]}>
+        <LinearGradient
+          colors={['rgba(240,152,25,1)', 'rgba(255,88,88,1)']} 
+          start={{x: 0.0, y: 1}} 
+          end={{x: 1, y: 1}}
+          style={styles.linearGradient}
+        >
+          <Text style={[
+            styles.text,
+            {color: props.theme.colors.text}
+          ]}>{props.item.day}</Text>
+        </LinearGradient>
+        <Image style={styles.image} source={props.item.url}/>
+      </View>
+    </TouchableOpacity>
   )
 }
 
@@ -33,14 +40,26 @@ const styles = StyleSheet.create({
     width: width-20,
     borderRadius: 10,
     overflow: 'hidden',
-    justifyContent: 'center',
-    marginBottom: 12,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
   },
   linearGradient: {
     width: 80,
     height: 100,
     borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 30,
+    fontWeight: '600'
+  },
+  image: {
+    height: '100%',
+    width: 80
   }
 });
 
-export default ColumnParts
+export default withTheme(ColumnParts);

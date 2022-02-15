@@ -12,7 +12,7 @@ export const initializeDatabase = () => {
         () => {
         },
         () => {
-          console.log("Create Error");
+          console.warn("Create Error");
           return true
         }
       );
@@ -29,7 +29,7 @@ export const firstSaveDatabase = (id, storyIconImage, storyImage, galleryImage, 
         () => {
         },
         (e) => {
-          console.log(e);
+          console.warn(e);
           return true
         }
       )
@@ -37,14 +37,14 @@ export const firstSaveDatabase = (id, storyIconImage, storyImage, galleryImage, 
   );
 }
 
-export const getHomeStoryDataSet = (set) => {
+export const getHomeStoryDataSet = (setData) => {
   db.transaction(
     (tx) => {
        tx.executeSql(
         "SELECT * FROM foods;",
         [],
         (_, data) => {
-          set.length = 0;
+          setData.length = 0;
           for (let i = 0; i < data.rows.length; i++) {
             const date = data.rows.item(i).date.split('-');
             const dataList = {
@@ -57,11 +57,11 @@ export const getHomeStoryDataSet = (set) => {
                   swipeText: data.rows.item(i).date,
               }]
             }
-            set.push(dataList)
+            setData.push(dataList)
           }
         },
         () => {
-          console.log("Select Error");
+          console.warn("Select Error");
         }
       );
     }
@@ -86,12 +86,66 @@ export const getHomeCardDataSet = (setData) => {
           setData(dataSet);
         },
         () => {
-          console.log("Select Error");
+          console.warn("Select Error");
         }
       );
     }
   );
 };
+
+export const getCalendarMarkSet = (setData, color) => {
+  let dataSet = {};
+  db.transaction(
+    (tx) => {
+      tx.executeSql(
+        "SELECT date FROM foods;",
+        [],
+        (_, data) => {
+          for (let i = 0; i < data.rows.length; i++) {
+            const date = data.rows.item(i).date.split('-');
+            const str = date[0] + '-' + (date[1].length===1 ? '0'+date[1] : date[1]) + '-' + (date[2].length===1 ? '0'+date[2] : date[2]);
+            const dataList = {
+              [str]: {marked: true, dotColor: color},
+            }
+            dataSet = {...dataSet, ...dataList}
+          }
+          setData(dataSet);
+        },
+        () => {
+          console.warn("Select Error");
+        }
+      );
+    }
+  );
+}
+
+export const getCalendarDataSet = (setData) => {
+  const dataSet = [];
+  db.transaction(
+    (tx) => {
+      tx.executeSql(
+        "SELECT * FROM foods;",
+        [],
+        (_, data) => {
+          for (let i = 0; i < data.rows.length; i++) {
+            const date = data.rows.item(i).date.split('-');
+            const dataList = {
+              num: i+1,
+              day: date[2],
+              id: data.rows.item(i).id,
+              url: {uri: data.rows.item(i).storyIconImage},
+            }
+            dataSet.push(dataList)
+          }
+          setData(dataSet);
+        },
+        () => {
+          console.warn("Select Error");
+        }
+      );
+    }
+  );
+}
 
 export const getGalleryDataSet = (setData) => {
   const dataSet = [];
@@ -111,7 +165,7 @@ export const getGalleryDataSet = (setData) => {
           setData(dataSet);
         },
         () => {
-          console.log("Select Error");
+          console.warn("Select Error");
         }
       );
     }
@@ -135,7 +189,7 @@ export const getDetailDataSet = (id, setData) => {
           setData(dataList);
         },
         () => {
-          console.log("Select Error");
+          console.warn("Select Error");
         }
       );
     }
@@ -152,7 +206,7 @@ export const showDatabase = () => {
           console.log(resultSet);
         },
         () => {
-          console.log("Show Error");
+          console.warn("Show Error");
           return false;
         }
       );
@@ -169,7 +223,7 @@ export const dropTable = () => {
         () => {
         },
         () => {
-          console.log("Drop Table Error");
+          console.warn("Drop Table Error");
           return true
         }
       );

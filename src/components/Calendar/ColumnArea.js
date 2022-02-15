@@ -1,9 +1,17 @@
-import React from 'react'
-import { Dimensions, FlatList, StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet, View } from 'react-native'
 import { withTheme } from 'react-native-elements';
+import { getCalendarDataSet } from '../../api/database';
 import ColumnParts from './ColumnParts';
 
 const ColumnArea = (props) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    props.navigation.addListener('focus', () => {
+      getCalendarDataSet(setData);
+    });
+  }, [props.navigation]);
 
   return (
     <View style={[
@@ -12,8 +20,9 @@ const ColumnArea = (props) => {
     ]}>
       <FlatList
         style={styles.flatList}
-        data={list}
-        renderItem={({item}) => <ColumnParts key={item.key} id={item.key}/>}
+        data={data}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => <ColumnParts item={item}/>}
       />
     </View>
   )
@@ -33,36 +42,12 @@ const styles = StyleSheet.create({
 
 const list = [
   {
-    key: 1,
+    id: 1,
     color: '#800000'
   },
   {
-    key: 2,
+    id: 2,
     color: '#4b0082'
-  },
-  {
-    key: 3,
-    color: '#008b8b'
-  },
-  {
-    key: 4,
-    color: '#006400'
-  },
-  {
-    key: 5,
-    color: '#191970'
-  },
-  {
-    key: 6,
-    color: '#800000'
-  },
-  {
-    key: 7,
-    color: '#4b0082'
-  },
-  {
-    key: 8,
-    color: '#008b8b'
   },
 ]
 

@@ -23,7 +23,7 @@ const HomeCalendarArea = (props) => {
           More  {'>'}
         </Text>
       </View>
-      <HomeCalendarParts />
+      <HomeCalendarParts navigation={props.navigation}/>
     </View>
   )
 }

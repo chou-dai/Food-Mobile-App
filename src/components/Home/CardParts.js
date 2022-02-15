@@ -1,17 +1,17 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import Ripple from 'react-native-material-ripple';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const CardParts = (props) => {
   
+  const handleOpen = () => {
+    alert(props.item.id)
+  }
+
   return (
     <View style={styles.card}>
-      <Ripple style={styles.ripple}>
-        <Image
-          style={styles.image}
-          source={props.item.url}
-        />
-      </Ripple>
+      <TouchableOpacity style={styles.touch} activeOpacity={0.8} onPress={handleOpen}>
+        <Image style={styles.image} source={props.item.url} />
+      </TouchableOpacity>
     </View>
   )
 }
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  ripple: {
+  touch: {
     height: '100%',
     width: '100%'
   },

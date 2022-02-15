@@ -4,7 +4,7 @@ import { withTheme } from 'react-native-elements';
 import { getDetailDataSet } from '../../api/database';
 import { Dialog } from 'react-native-simple-dialogs'
 import DetailParts from './DetailParts';
-import Ripple from 'react-native-material-ripple';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 
 const DetailArea = (props) => {
@@ -20,24 +20,26 @@ const DetailArea = (props) => {
   }
 
   return (
-    <Dialog
-      visible={true}
-      animationType={'fade'}
-      onTouchOutside={() => handleClose()}
-      dialogStyle={[
-        styles.dialog,
-        {backgroundColor: 'rgba(0,0,0,0)'}
-      ]}
-      contentStyle={[
-        styles.container,
-        {backgroundColor: props.theme.colors.base}
-      ]}
-      overlayStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
-    >
-      <View style={styles.inner}>
-        {data ? <DetailParts item={data}/> : null}
-      </View>
-    </Dialog>
+    <GestureRecognizer onSwipe={() => handleClose()}>
+      <Dialog
+        visible={true}
+        animationType={'fade'}
+        onTouchOutside={() => handleClose()}
+        dialogStyle={[
+          styles.dialog,
+          {backgroundColor: 'rgba(0,0,0,0)'}
+        ]}
+        contentStyle={[
+          styles.container,
+          {backgroundColor: props.theme.colors.base}
+        ]}
+        overlayStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
+      >
+        <View style={styles.inner}>
+          {data ? <DetailParts item={data}/> : null}
+        </View>
+      </Dialog>
+    </GestureRecognizer>
   )
 }
 

@@ -84,48 +84,6 @@ const testData = [
         swipeText:'Custom swipe text for this story',
     }]
   },
-  {
-    user_id: 4,
-    user_image: require('../../../assets/test/4.jpeg'),
-    user_name: "Test User",
-    stories: [{
-        story_id: 1,
-        story_image: require('../../../assets/test/10.jpeg'),
-        swipeText:'Custom swipe text for this story',},
-      {
-        story_id: 2,
-        story_image: require('../../../assets/test/8.jpeg'),
-        swipeText:'Custom swipe text for this story',
-    }]
-  },
-  {
-    user_id: 6,
-    user_image: require('../../../assets/test/9.jpeg'),
-    user_name: "Test User",
-    stories: [{
-        story_id: 1,
-        story_image: require('../../../assets/test/4.jpeg'),
-        swipeText:'Custom swipe text for this story',},
-      {
-        story_id: 2,
-        story_image: require('../../../assets/test/1.jpeg'),
-        swipeText:'Custom swipe text for this story',
-    }]
-  },
-  {
-    user_id: 7,
-    user_image: require('../../../assets/test/8.jpeg'),
-    user_name: "Test User",
-    stories: [{
-        story_id: 1,
-        story_image: require('../../../assets/test/10.jpeg'),
-        swipeText:'Custom swipe text for this story',},
-      {
-        story_id: 2,
-        story_image: require('../../../assets/test/7.jpeg'),
-        swipeText:'Custom swipe text for this story',
-    }]
-  }
 ];
 
 export default withTheme(StoryArea);

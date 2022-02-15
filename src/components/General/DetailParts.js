@@ -4,25 +4,36 @@ import { withTheme } from 'react-native-elements';
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
 
 const DetailParts = (props) => {
 
   const [like, setLike] = useState(false);
+  const [bgColor, setBgColor] = useState('black');
+  const [txtColor, setTxtColor] = useState(props.theme.colors.text);
 
   const handleLike = () => {
     setLike(!like);
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+  }
+
+  const handleColor = () => {
+    setBgColor('green');
+    setTxtColor('white');
+    alert('Change Color');
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: bgColor}]}>
 
       <View style={styles.topContent}>
         <View style={styles.topLeft}>
           <Image style={styles.icon} source={props.item.icon}/>
-          <Text style={{color: props.theme.colors.text}}>{props.item.date}</Text>
+          <Text style={{color: txtColor}}>{props.item.date}</Text>
         </View>
         <Feather style={{marginRight: 20}} name="more-horizontal"
-          size={26} color={props.theme.colors.text}
+          size={26} color={txtColor}
           onPress={() => {alert("edit")}}/>
       </View>
 
@@ -36,13 +47,17 @@ const DetailParts = (props) => {
           />
           ):(
           <AntDesign name="hearto" size={24} 
-            style={{marginLeft: 20}} color={props.theme.colors.text}
+            style={{marginLeft: 20}} color={txtColor}
             onPress={handleLike}
           />
         )}
         <Entypo name="share" size={24} 
-          style={{marginLeft: 12}} color={props.theme.colors.text}
+          style={{marginLeft: 12}} color={txtColor}
           onPress={() => {alert("share")}}
+        />
+        <Ionicons name="color-palette-outline" size={27}
+          style={{marginLeft: 12}} color={txtColor}
+          onPress={handleColor}
         />
       </View>
 
