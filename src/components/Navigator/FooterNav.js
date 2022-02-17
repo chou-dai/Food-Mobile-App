@@ -8,7 +8,7 @@ import Calendar from '../../Calendar';
 import Gallery from '../../Gallery';
 import Setting from '../../Setting';
 import { withTheme } from 'react-native-elements';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FAB } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -87,19 +87,21 @@ const FooterNav = (props) => {
           options = {({ navigation }) => ({
             tabBarLabel: 'カメラ',
             tabBarButton: () => (
-              <LinearGradient
-                colors={['rgba(240,152,25,1)', 'rgba(255,88,88,1)']} 
-                start={{x: 0.0, y: 1}} 
-                end={{x: 1, y: 1}}
-                style={[styles.linearGradient, {top: top, opacity: opacity}]}
-              >
-                <FAB style={styles.fab} icon="camera" color="#ddd"
-                  onPress={() => {
-                    navigation.navigate('camera');
-                    setIsCamera(true)
-                  }}
-                />
-              </LinearGradient>
+              <View style={styles.shadow}>
+                <LinearGradient
+                  colors={['rgba(240,152,25,1)', 'rgba(255,88,88,1)']} 
+                  start={{x: 0.0, y: 1}} 
+                  end={{x: 1, y: 1}}
+                  style={[styles.linearGradient, {top: top, opacity: opacity}]}
+                >
+                  <FAB style={styles.fab} icon="camera" color="#ddd"
+                    onPress={() => {
+                      navigation.navigate('camera');
+                      setIsCamera(true)
+                    }}
+                  />
+                </LinearGradient>
+              </View>
             )
           })}
         />
@@ -139,6 +141,12 @@ const FooterNav = (props) => {
 }
 
 const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+  },
   linearGradient: {
     position: 'relative',
     width: 52,
@@ -153,10 +161,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0)',
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
   },
 })
 

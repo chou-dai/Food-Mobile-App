@@ -6,19 +6,25 @@ import { getCalendarMarkSet } from '../../api/database';
 
 const CalendarParts = (props) => {
   const [markData, setMarkData] = useState(null);
+  const [selectDay, setSelectDay] = useState(null);
 
   useEffect(() => {
     props.navigation.addListener('focus', () => {
-      getCalendarMarkSet(setMarkData, 'green');
+      getCalendarMarkSet(setMarkData, '#D3D3D3');
     });
   }, [props.navigation]);
   
-
   const handleMonth = (data) => {
-    // console.log(data[0].year + '-' + data[0].month);
+    setSelectDay(null)
+    props.setDate(data[0].year + '-' + data[0].month);
   }
   const handleDay = (data) => {
-    // console.log(data.year + '-' + data.month + '-' + data.day);
+    if(markData[data.dateString] !== undefined) {
+      setSelectDay({[data.dateString]:{...markData[data.dateString], selected: true}})
+    } else {
+      setSelectDay({[data.dateString]:{selected: true}})
+    }
+    props.setDate(data.year + '-' + data.month + '-' + data.day);
   }
 
   return (
@@ -26,7 +32,7 @@ const CalendarParts = (props) => {
       <CalendarList
         onVisibleMonthsChange={handleMonth}
         onDayPress={handleDay}
-        markedDates={markData}
+        markedDates={{...markData, ...selectDay}}
         style={styles.calendar}
         horizontal={true}
         pagingEnabled={true}
@@ -36,12 +42,12 @@ const CalendarParts = (props) => {
           calendarBackground: "rgba(0,0,0,0)",
           monthTextColor: props.theme.colors.text,
           textMonthFontWeight: '600',
-          todayTextColor: "white",
-          todayBackgroundColor: 'rgba(0,0,0,0.05)',
-          dayTextColor: props.theme.colors.text,
+          todayTextColor: "#FFFFCC",
+          dayTextColor: "#FFFFFF",
           textDayFontWeight: '500',
           textSectionTitleColor: props.theme.colors.text,
           textDayHeaderFontWeight: '500',
+          selectedDayBackgroundColor: 'rgba(0,0,0,0.1)',
           'stylesheet.day.basic':{
             'base':{
               marginTop: -6,

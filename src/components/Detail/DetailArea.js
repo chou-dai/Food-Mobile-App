@@ -9,20 +9,24 @@ import GestureRecognizer from 'react-native-swipe-gestures';
 
 const DetailArea = (props) => {
   const [data, setData] = useState();
+  const [overOpen, setOverOpen] = useState(false);
 
   useEffect(() => {
-    getDetailDataSet(props.id, setData);
-  }, []);
+    if(props.id!==null)
+      getDetailDataSet(props.id, setData);
+  }, [props.id]);
 
   const handleClose = () => {
-    props.setId(null);
-    props.setOpen(false);
+    if(!overOpen) {
+      props.setId(null);
+      props.setOpen(false);
+    }
   }
 
   return (
-    <GestureRecognizer onSwipe={() => handleClose()}>
+    <GestureRecognizer onSwipe={handleClose}>
       <Dialog
-        visible={true}
+        visible={props.open}
         animationType={'fade'}
         onTouchOutside={() => handleClose()}
         dialogStyle={[
@@ -36,7 +40,7 @@ const DetailArea = (props) => {
         overlayStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
       >
         <View style={styles.inner}>
-          {data ? <DetailParts item={data}/> : null}
+          {data ? <DetailParts item={data} setOverOpen={setOverOpen}/> : null}
         </View>
       </Dialog>
     </GestureRecognizer>
@@ -47,12 +51,11 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
-
   dialog: {
     shadowColor: '#888',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
-    shadowRadius: 10,
+    shadowRadius: 5,
   },
   container: {
     height: height*0.55+110,

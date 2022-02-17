@@ -119,13 +119,13 @@ export const getCalendarMarkSet = (setData, color) => {
   );
 }
 
-export const getCalendarDataSet = (setData) => {
+export const getCalendarDataSet = (query, setData) => {
   const dataSet = [];
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "SELECT * FROM foods;",
-        [],
+        "SELECT * FROM foods WHERE date LIKE ?;",
+        [query+'%'],
         (_, data) => {
           for (let i = 0; i < data.rows.length; i++) {
             const date = data.rows.item(i).date.split('-');

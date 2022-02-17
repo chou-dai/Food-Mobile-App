@@ -8,10 +8,8 @@ const ColumnArea = (props) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    props.navigation.addListener('focus', () => {
-      getCalendarDataSet(setData);
-    });
-  }, [props.navigation]);
+    getCalendarDataSet(props.date, setData);
+  }, [props.date]);
 
   return (
     <View style={[

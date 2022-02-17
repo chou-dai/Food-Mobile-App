@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { withTheme } from 'react-native-elements';
 import { ListArea, SearchArea } from './components/Gallery';
-import { DetailArea } from './components/General';
+import { DetailArea } from './components/Detail';
 
 const Gallery = (props) => {
   const [open, setOpen] = useState(false);
@@ -15,7 +15,7 @@ const Gallery = (props) => {
     ]}>
       <SearchArea />
       <ListArea navigation={props.navigation} setOpen={setOpen} setId={setId}/>
-      {open ? <DetailArea id={id} setOpen={setOpen} setId={setId} /> : null}
+      <DetailArea id={id} open={open} setOpen={setOpen} setId={setId} />
     </View>
   );
 }

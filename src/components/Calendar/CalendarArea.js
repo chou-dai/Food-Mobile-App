@@ -14,7 +14,7 @@ const CalendarArea = (props) => {
           end={{x: 1, y: 1}}
           style={{width: width, alignItems: 'center'}}
         >
-          <CalendarParts navigation={props.navigation}/>
+          <CalendarParts navigation={props.navigation} setDate={props.setDate}/>
         </LinearGradient>
       </View>
     </View>

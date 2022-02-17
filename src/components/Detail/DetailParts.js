@@ -6,23 +6,43 @@ import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
+import EditPlate from './EditPlate';
+import ColorChange from './ColorChange';
 
 const DetailParts = (props) => {
-
   const [like, setLike] = useState(false);
-  const [bgColor, setBgColor] = useState('black');
+  const [which, setWhich] = useState(true);
+  const [bgColor, setBgColor] = useState(props.theme.colors.base);
   const [txtColor, setTxtColor] = useState(props.theme.colors.text);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const [colorOpen, setColorOpen] = useState(false);
+
+
+  const handleMore = () => {
+    setMoreOpen(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  }
+  useEffect(() => {
+    moreOpen ? props.setOverOpen(true) : props.setOverOpen(false)
+  }, [moreOpen]);
+  
+  const handleColor = () => {
+    setColorOpen(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  }
+  useEffect(() => {
+    colorOpen ? props.setOverOpen(true) : props.setOverOpen(false)
+  }, [colorOpen]);
 
   const handleLike = () => {
     setLike(!like);
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+  }
+  const handleShare = () => {
+    alert('share');
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   }
 
-  const handleColor = () => {
-    setBgColor('green');
-    setTxtColor('white');
-    alert('Change Color');
-  }
 
   return (
     <View style={[styles.container, {backgroundColor: bgColor}]}>
@@ -34,7 +54,7 @@ const DetailParts = (props) => {
         </View>
         <Feather style={{marginRight: 20}} name="more-horizontal"
           size={26} color={txtColor}
-          onPress={() => {alert("edit")}}/>
+          onPress={handleMore}/>
       </View>
 
       <Image style={styles.image} source={props.item.url}/>
@@ -53,14 +73,20 @@ const DetailParts = (props) => {
         )}
         <Entypo name="share" size={24} 
           style={{marginLeft: 12}} color={txtColor}
-          onPress={() => {alert("share")}}
+          onPress={handleShare}
         />
         <Ionicons name="color-palette-outline" size={27}
           style={{marginLeft: 12}} color={txtColor}
           onPress={handleColor}
         />
       </View>
-
+      
+      <EditPlate open={moreOpen} setOpen={setMoreOpen}/>
+      <ColorChange open={colorOpen} setOpen={setColorOpen}
+        which={which} setWhich={setWhich}
+        setBgColor={setBgColor} bgColor={bgColor}
+        setTxtColor={setTxtColor} txtColor={txtColor}/>
+ 
     </View>
   )
 }
