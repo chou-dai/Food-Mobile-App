@@ -6,8 +6,9 @@ export const initializeDatabase = () => {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS foods (id TEXT primary key not null,"
-          + "storyIconImage TEXT, storyImage TEXT, galleryImage TEXT, date TEXT);",
+        "CREATE TABLE IF NOT EXISTS foods"
+          + "(id TEXT primary key not null, isPressed INTEGER,"
+          + "smallImage TEXT, mediumImage TEXT, largeImage TEXT, date TEXT);",
         null,
         () => {
         },
@@ -20,12 +21,12 @@ export const initializeDatabase = () => {
   );
 }
 
-export const firstSaveDatabase = (id, storyIconImage, storyImage, galleryImage, date) => {
+export const firstSaveDatabase = (id, isPressed, smallImage, mediumImage, largeImage, date) => {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "INSERT INTO foods (id, storyIconImage, storyImage, galleryImage, date) VALUES (?, ?, ?, ?, ?);",
-        [id, storyIconImage, storyImage, galleryImage, date],
+        "INSERT INTO foods (id, isPressed, smallImage, mediumImage, largeImage, date) VALUES (?, ?, ?, ?, ?, ?);",
+        [id, isPressed, smallImage, mediumImage, largeImage, date],
         () => {
         },
         (e) => {
@@ -37,11 +38,28 @@ export const firstSaveDatabase = (id, storyIconImage, storyImage, galleryImage, 
   );
 }
 
-export const getHomeStoryDataSet = (setData) => {
+export const getDataCount = (setCount) => {
   db.transaction(
     (tx) => {
        tx.executeSql(
         "SELECT * FROM foods;",
+        [],
+        (_, data) => {
+          setCount(data.rows.length);
+        },
+        () => {
+          return 0;
+        }
+      );
+    }
+  );
+}
+
+export const getHomeStoryDataSet = (setData) => {
+  db.transaction(
+    (tx) => {
+       tx.executeSql(
+        "SELECT * FROM foods ORDER BY date DESC;",
         [],
         (_, data) => {
           setData.length = 0;
@@ -49,11 +67,12 @@ export const getHomeStoryDataSet = (setData) => {
             const date = data.rows.item(i).date.split('-');
             const dataList = {
               user_id: data.rows.item(i).id,
-              user_image: {uri: data.rows.item(i).storyIconImage},
+              user_image: {uri: data.rows.item(i).smallImage},
               user_name: date[1] + "月" + date[2] + "日",
+              seen: (data.rows.item(i).isPressed===1 ? true : false),
               stories: [{
                   story_id: data.rows.item(i).id,
-                  story_image: {uri: data.rows.item(i).storyImage},
+                  story_image: {uri: data.rows.item(i).mediumImage},
                   swipeText: data.rows.item(i).date,
               }]
             }
@@ -68,18 +87,36 @@ export const getHomeStoryDataSet = (setData) => {
   );
 }
 
+export const updateIsPressed = (id) => {
+  db.transaction(
+    (tx) => {
+       tx.executeSql(
+        "UPDATE foods SET isPressed = 1 WHERE id = ?;",
+        [id],
+        () => {
+        },
+        () => {
+          console.warn("Updare Error");
+        }
+      );
+    }
+  );
+}
+
+
+// "SELECT id, largeImage FROM foods ORDER BY RANDOM() LIMIT 6;",
 export const getHomeCardDataSet = (setData) => {
   const dataSet = [];
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "SELECT id, galleryImage FROM foods;",
+        "SELECT id, largeImage FROM foods;",
         [],
         (_, data) => {
           for (let i = 0; i < data.rows.length; i++) {
             const dataList = {
               id: data.rows.item(i).id,
-              url: {uri: data.rows.item(i).galleryImage},
+              url: {uri: data.rows.item(i).largeImage},
             }
             dataSet.push(dataList)
           }
@@ -133,7 +170,7 @@ export const getCalendarDataSet = (query, setData) => {
               num: i+1,
               day: date[2],
               id: data.rows.item(i).id,
-              url: {uri: data.rows.item(i).storyIconImage},
+              url: {uri: data.rows.item(i).smallImage},
             }
             dataSet.push(dataList)
           }
@@ -152,13 +189,13 @@ export const getGalleryDataSet = (setData) => {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "SELECT id, galleryImage FROM foods;",
+        "SELECT id, largeImage FROM foods;",
         [],
         (_, data) => {
           for (let i = 0; i < data.rows.length; i++) {
             const dataList = {
               id: data.rows.item(i).id,
-              url: {uri: data.rows.item(i).galleryImage},
+              url: {uri: data.rows.item(i).largeImage},
             }
             dataSet.push(dataList)
           }
@@ -182,9 +219,9 @@ export const getDetailDataSet = (id, setData) => {
           const date = data.rows.item(0).date.split('-');
           const dataList = {
             id: data.rows.item(0).id,
-            icon: {uri: data.rows.item(0).storyIconImage},
+            icon: {uri: data.rows.item(0).smallImage},
             date: date[1] + "月" + date[2] + "日",
-            url: {uri: data.rows.item(0).storyImage},
+            url: {uri: data.rows.item(0).mediumImage},
           }
           setData(dataList);
         },
@@ -200,7 +237,7 @@ export const showDatabase = () => {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        "select * from foods;",
+        "SELECT isPressed FROM foods;",
         [],
         (_, resultSet) => {
           console.log(resultSet);

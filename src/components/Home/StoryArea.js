@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { withTheme } from 'react-native-elements';
 import InstaStory from 'react-native-insta-story';
 import { getHomeStoryDataSet } from '../../api/database';

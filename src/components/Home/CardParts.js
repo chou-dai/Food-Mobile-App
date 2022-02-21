@@ -4,7 +4,8 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 const CardParts = (props) => {
   
   const handleOpen = () => {
-    alert(props.item.id)
+    props.setId(props.item.id);
+    props.setOpen(true);
   }
 
   return (

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, Dimensions, Animated, View } from 'react-native';
 import { withTheme } from 'react-native-elements';
+import { DetailArea } from './components/Detail';
 import { HomeCalendarArea, CardArea, SearchArea, StoryArea, TitleArea } from './components/Home';
 
 const Home = (props) => {
   const [scrollY, setScrollY] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState(null);
   
   return (
     <View style ={[
@@ -22,9 +25,10 @@ const Home = (props) => {
         <View style={{height:160, opacity:0}}/>
         <SearchArea/>
         <StoryArea navigation={props.navigation}/>
-        <CardArea navigation={props.navigation}/>
+        <CardArea navigation={props.navigation} setOpen={setOpen} setId={setId}/>
         <HomeCalendarArea navigation={props.navigation} />
       </Animated.ScrollView>
+      <DetailArea id={id} open={open} setOpen={setOpen} setId={setId} />
     </View>
   );
 }

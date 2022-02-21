@@ -35,7 +35,7 @@ const CardArea = (props) => {
         style={styles.flatList}
         data={data}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) => <CardParts item={item}/>}
+        renderItem={({item}) => <CardParts item={item} setOpen={props.setOpen} setId={props.setId}/>}
         horizontal={true}
       />
     </View>
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   flatList: {
     paddingLeft: 3,
     width: '100%',
+    height: 214
   },
 });
 

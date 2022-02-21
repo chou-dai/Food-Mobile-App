@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { withTheme } from 'react-native-elements';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Button, withTheme } from 'react-native-elements';
 import Modal from 'react-native-modal';
 
 
@@ -26,12 +26,27 @@ const EditPlate = (props) => {
     >
       <TouchableOpacity
         onPress={handleClose}
-        style={{height:height*0.7}}
+        style={{height:height-240}}
       />
       <View style={[styles.container, {backgroundColor: props.theme.colors.border}]}>
-        <Button title='編集' onPress={handleEdit} />
-        <Button title='削除' color={'red'} onPress={handleDelete} />
-        <Button title='キャンセル' onPress={handleClose} />
+        <Button title='編集'
+          containerStyle={styles.buttonOuter}
+          buttonStyle={styles.buttonInner}
+          titleStyle={{color: '#007AFF'}}
+          onPress={handleEdit}
+        />
+        <Button title='削除'
+          containerStyle={styles.buttonOuter}
+          buttonStyle={styles.buttonInner}
+          titleStyle={{color: '#ff0f0f'}}
+          onPress={handleDelete}
+        />
+        <Button title='キャンセル'
+          containerStyle={[styles.buttonOuter, {marginTop: 15}]}
+          buttonStyle={styles.buttonInner}
+          titleStyle={{color: '#007AFF'}}
+          onPress={handleClose}
+        />
       </View>
     </Modal>
   )
@@ -43,7 +58,7 @@ const height = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    height: height*0.3,
+    height: 240,
     width: width,
     alignItems: 'center',
     justifyContent: 'center',
@@ -53,7 +68,18 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
     shadowRadius: 2,
+    paddingTop: 10,
   },
+  buttonOuter: {
+    width: width*0.9,
+    height: 50,
+    marginBottom: 6,
+  },
+  buttonInner: {
+    backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    borderRadius: 10,
+    height: '100%',
+  }
 });
 
 export default withTheme(EditPlate);

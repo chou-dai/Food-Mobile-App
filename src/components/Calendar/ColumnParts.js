@@ -6,7 +6,8 @@ import { withTheme } from 'react-native-elements';
 const ColumnParts = (props) => {
 
   const handleOpen = () => {
-    alert(props.item.id);
+    props.setId(props.item.id);
+    props.setOpen(true);
   }
 
   return (

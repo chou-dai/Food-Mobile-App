@@ -20,7 +20,7 @@ const ColumnArea = (props) => {
         style={styles.flatList}
         data={data}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) => <ColumnParts item={item}/>}
+        renderItem={({item}) => <ColumnParts item={item} setOpen={props.setOpen} setId={props.setId}/>}
       />
     </View>
   )

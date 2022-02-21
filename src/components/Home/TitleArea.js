@@ -16,7 +16,9 @@ const TitleArea = (props) => {
         end={{x: 1, y: 1}}
         style={[
           styles.linearGradient,
-          {transform: [{scale: props.scrollY < 0 ? (0,1+props.scrollY*(-0.01)) : (1)}],},
+          {display: props.scrollY > 260 ? 'none' : 'block'},
+          {transform: [{scale: props.scrollY < 0 ? (0,1+props.scrollY*(-0.01)) : (1)}],
+          },
         ]}
       />
       <Animated.Text
@@ -31,19 +33,20 @@ const TitleArea = (props) => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    height: 160,
+    height: 300,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   linearGradient: {
     position: 'absolute',
-    height: 200,
+    height: 300,
     width: '100%',
   },
   text: {
     color: '#ffffff',
     fontSize: 30,
+    marginBottom: 140,
   },
 });
 
