@@ -26,7 +26,7 @@ const TitleArea = (props) => {
           styles.text,
           {transform: [{translateY: props.scrollY < 0 ? (props.scrollY*(-0.25)) : (props.scrollY*-0.5),}],},
         ]}
-        >Title</Animated.Text>
+        >タイトル</Animated.Text>
     </View>
   )
 }
@@ -46,7 +46,9 @@ const styles = StyleSheet.create({
   text: {
     color: '#ffffff',
     fontSize: 30,
+    fontWeight: 'bold',
     marginBottom: 140,
+    fontFamily: 'Arial'
   },
 });
 

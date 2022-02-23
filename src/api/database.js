@@ -56,13 +56,13 @@ export const getDataCount = (setCount) => {
 }
 
 export const getHomeStoryDataSet = (setData) => {
+  const dataSet = [];
   db.transaction(
     (tx) => {
        tx.executeSql(
         "SELECT * FROM foods ORDER BY date DESC;",
         [],
         (_, data) => {
-          setData.length = 0;
           for (let i = 0; i < data.rows.length; i++) {
             const date = data.rows.item(i).date.split('-');
             const dataList = {
@@ -76,8 +76,9 @@ export const getHomeStoryDataSet = (setData) => {
                   swipeText: data.rows.item(i).date,
               }]
             }
-            setData.push(dataList)
+            dataSet.push(dataList)
           }
+          setData(dataSet);
         },
         () => {
           console.warn("Select Error");

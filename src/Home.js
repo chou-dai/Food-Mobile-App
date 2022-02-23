@@ -24,7 +24,7 @@ const Home = (props) => {
       >
         <View style={{height:160, opacity:0}}/>
         <SearchArea/>
-        <StoryArea navigation={props.navigation}/>
+        <StoryArea navigation={props.navigation} setIsCamera={props.setIsCamera}/>
         <CardArea navigation={props.navigation} setOpen={setOpen} setId={setId}/>
         <HomeCalendarArea navigation={props.navigation} />
       </Animated.ScrollView>

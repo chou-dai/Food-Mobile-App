@@ -53,7 +53,7 @@ const FooterNav = (props) => {
         }}
       >
         <Tab.Screen
-          name="home" component={ Home }
+          name="home"
           listeners={{tabPress: () => setIsCamera(false)}}
           options={{
             tabBarLabel: 'ホーム',
@@ -66,7 +66,7 @@ const FooterNav = (props) => {
               />
             )
           }}
-        />
+        >{(props) => <Home setIsCamera={setIsCamera} {...props}/>}</Tab.Screen>
         <Tab.Screen
           name="calendar" component={ Calendar }
           listeners={{tabPress: () => setIsCamera(false)}}

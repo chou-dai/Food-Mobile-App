@@ -1,17 +1,24 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { withTheme } from 'react-native-elements';
 import InstaStory from 'react-native-insta-story';
 import { getHomeStoryDataSet } from '../../api/database';
+import { Ionicons } from '@expo/vector-icons';
 
 const StoryArea = (props) => {
-  const data = [{}];
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     props.navigation.addListener('focus', () => {
-      getHomeStoryDataSet(data);
+      getHomeStoryDataSet(setData);
     });
   }, [props.navigation]);
+
+  const handleNavigation = () => {
+    props.setIsCamera(true);
+    props.navigation.navigate('camera');
+  }
+
   
   return (
     <View style={[
@@ -20,15 +27,27 @@ const StoryArea = (props) => {
       {backgroundColor: props.theme.colors.base},
       {borderColor: props.theme.colors.border}
     ]}>
-      <InstaStory
-        data={data} duration={5} avatarSize={70}
-        pressedBorderColor={props.theme.colors.border}
-        avatarTextStyle={{
-          color: props.theme.colors.text,
-          fontSize: 12,
-        }}
-        style={{marginTop: 30, left:0}}
-      />
+      {data.length===0 ? (
+        <View style={styles.noneStyle}>
+          <View style={styles.story}>
+            <TouchableOpacity style={[styles.avatarWrapper, {backgroundColor: props.theme.colors.border}]}
+              onPress={handleNavigation} activeOpacity={0.5}>
+                <Ionicons name="add" style={{marginLeft: 5, marginTop: 2.5}} size={60} color="black"/>
+            </TouchableOpacity>
+            <Text style={[styles.text, {color: props.theme.colors.text}]}>ストーリーズ</Text>
+          </View>
+        </View>
+      ):(
+        <InstaStory
+          data={data} duration={5} avatarSize={70}
+          pressedBorderColor={props.theme.colors.border}
+          avatarTextStyle={{
+            color: props.theme.colors.text,
+            fontSize: 12,
+          }}
+          style={{marginTop: 30, left:0}}
+        />
+      )}
     </View>
   )
 }
@@ -47,43 +66,35 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.9,
     shadowRadius: 3,
   },
+  noneStyle: {
+    width:'100%',
+    paddingLeft: 12,
+    alignItems:'flex-start',
+    position: 'absolute',
+    bottom: 0
+  },
+  story: {
+    marginVertical: 5,
+    marginRight: 10
+  },
+  avatarWrapper: {
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    borderColor: 'red',
+    borderWidth: 2,
+    borderRadius: 100,
+    backgroundColor: 'gray',
+    height: 74,
+    width: 74,
+  },
+  text: {
+    marginTop: 3,
+    textAlign: "center",
+    alignItems: "center",
+    fontSize: 12,
+    paddingBottom: 8
+  }
 });
-
-const testData = [
-  {
-    user_id: 1,
-    user_image: require('../../../assets/test/5.jpeg'),
-    user_name: "Test User",
-    stories: [{
-        story_id: 1,
-        story_image: require('../../../assets/test/5.jpeg'),
-        swipeText:'Custom swipe text for this story',
-    }]
-  },
-  {
-    user_id: 2,
-    user_image: require('../../../assets/test/3.jpeg'),
-    user_name: "Test User",
-    stories: [{
-        story_id: 1,
-        story_image: require('../../../assets/test/5.jpeg'),
-        swipeText:'Custom swipe text for this story',
-    }]
-  },
-  {
-    user_id: 3,
-    user_image: require('../../../assets/test/1.jpeg'),
-    user_name: "Test User",
-    stories: [{
-        story_id: 1,
-        story_image: require('../../../assets/test/1.jpeg'),
-        swipeText:'Custom swipe text for this story',},
-      {
-        story_id: 2,
-        story_image: require('../../../assets/test/9.jpeg'),
-        swipeText:'Custom swipe text for this story',
-    }]
-  },
-];
 
 export default withTheme(StoryArea);

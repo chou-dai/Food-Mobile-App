@@ -74,27 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const testData = [
-  {
-    key: 1,
-    url: require('../../../assets/test/5.jpeg'),
-  },
-  {
-    key: 2,
-    url: require('../../../assets/test/2.jpeg'),
-  },
-  {
-    key: 3,
-    url: require('../../../assets/test/3.jpeg'),
-  },
-  {
-    key: 4,
-    url: require('../../../assets/test/4.jpeg'),
-  },
-  {
-    key: 5,
-    url: require('../../../assets/test/5.jpeg'),
-  },
-]
-
 export default withTheme(CardArea);
