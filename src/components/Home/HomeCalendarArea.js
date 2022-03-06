@@ -6,7 +6,7 @@ import HomeCalendarParts from './HomeCalendarParts';
 const HomeCalendarArea = (props) => {
 
   const handleNavigation = () => {
-    props.navigation.navigate('calendar');
+    props.navigation.navigate('Calendar');
   }
 
   return (

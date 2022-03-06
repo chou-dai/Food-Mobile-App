@@ -11,7 +11,7 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 
 
 
-export default window.onload = function CameraScreen() {
+export default window.onload = function CameraScreen(props) {
   const [hasPermission, sertHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
@@ -62,8 +62,10 @@ export default window.onload = function CameraScreen() {
       const smallImage = await resizeImage(image.uri, 300);
       const mediumImage = await resizeImage(image.uri, 800);
       const largeImage = await resizeImage(image.uri, 400);
+      
+      // firstSaveDatabase(id, isPressed, smallImage, mediumImage, largeImage, today);
 
-      firstSaveDatabase(id, isPressed, smallImage, mediumImage, largeImage, today);
+      routeForm(image.uri);
 
       const { status } = await MediaLibrary.requestPermissionsAsync();
       if (status === 'granted') {
@@ -75,47 +77,39 @@ export default window.onload = function CameraScreen() {
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
     });
 
     if (!result.cancelled) {
       setPicture(result.uri);
+      routeForm(result.uri);
     }
   };
+
+  const routeForm = (pictureUrl) => {
+    props.navigation.navigate('Form', {url: {uri: pictureUrl}, path: props.route.name});
+  }
   
   return (
     <SafeAreaView style={{flex: 1, backgroundColor:'#222222' }}>
       <View style={{flex: 1}}>
-        {!picture ? (
-          <Camera style={{flex: 1}} type={type}
-            ref={(ref) => {
-              setCamera(ref);
-            }}
-          />
-        ) : (
-          <Image source={{ uri: picture }} style={{ flex: 1 }} />
-        )}
+        <Camera style={{flex: 1}} type={type}
+          ref={(ref) => {
+            setCamera(ref);
+          }}
+        />
       </View>
       <View style={[styles.bottomBar,{}]}>
-        {picture ? (
-          <TouchableOpacity onPress={() => setPicture(null)}>
-            <Ionicons name="ios-camera-outline" size={40} color="white"/>
+        <View style={styles.buttonArea}>
+          <TouchableOpacity onPress={pickImage} activeOpacity={0.5}>
+            <SimpleLineIcons name="picture" size={32} color="#eee"/>
           </TouchableOpacity>
-        ) : (
-          <View style={styles.buttonArea}>
-            <TouchableOpacity onPress={pickImage} activeOpacity={0.5}>
-              <SimpleLineIcons name="picture" size={32} color="#eee"/>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={takePicture}>
-              <MaterialCommunityIcons name="circle-slice-8" size={52} color="#fff"/>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleType} activeOpacity={0.5}>
-              <Ionicons name="md-sync" size={32} color="#eee"/>
-            </TouchableOpacity>
-          </View>
-        )}
+          <TouchableOpacity onPress={takePicture}>
+            <MaterialCommunityIcons name="circle-slice-8" size={52} color="#fff"/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleType} activeOpacity={0.5}>
+            <Ionicons name="md-sync" size={32} color="#eee"/>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );

@@ -23,6 +23,11 @@ const DetailArea = (props) => {
     }
   }
 
+  const forcedClose = () => {
+    props.setId(null);
+    props.setOpen(false);
+  }
+
   return (
     <GestureRecognizer onSwipe={handleClose}>
       <Dialog
@@ -40,7 +45,13 @@ const DetailArea = (props) => {
         overlayStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
       >
         <View style={styles.inner}>
-          {data ? <DetailParts item={data} setOverOpen={setOverOpen}/> : null}
+          {data ? (
+              <DetailParts navigation={props.navigation} route={props.route}
+                item={data} handleClose={forcedClose} setOverOpen={setOverOpen}
+              /> 
+            ):(
+              null
+          )}
         </View>
       </Dialog>
     </GestureRecognizer>

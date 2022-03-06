@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CalendarList, LocaleConfig } from 'react-native-calendars';
 import { withTheme } from 'react-native-elements';
 import { getCalendarMarkSet } from '../../api/database';
@@ -13,9 +13,8 @@ const CalendarParts = (props) => {
       getCalendarMarkSet(setMarkData, '#D3D3D3');
     });
   }, [props.navigation]);
-  
+
   const handleMonth = (data) => {
-    setSelectDay(null)
     props.setDate(data[0].year + '-' + data[0].month);
   }
   const handleDay = (data) => {

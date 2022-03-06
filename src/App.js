@@ -1,6 +1,7 @@
 import React from 'react';
-import { FooterNav } from './components/Navigator';
+import { FooterNav, StackNav } from './components/Navigator';
 import { ThemeProvider } from 'react-native-elements';
+import { NavigationContainer } from '@react-navigation/native';
 import { dropTable, initializeDatabase, showDatabase } from './api/database';
 
 const theme = {
@@ -18,7 +19,9 @@ export default function App() {
 	// showDatabase();
 	return (
 		<ThemeProvider theme={theme}>
-			<FooterNav />
+    	<NavigationContainer>
+				<StackNav />
+			</NavigationContainer>
 		</ThemeProvider>
 	);
 }

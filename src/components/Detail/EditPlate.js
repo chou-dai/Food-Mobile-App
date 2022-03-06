@@ -2,6 +2,7 @@ import React from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, withTheme } from 'react-native-elements';
 import Modal from 'react-native-modal';
+import { deleteData } from '../../api/database';
 
 
 const EditPlate = (props) => {
@@ -10,10 +11,11 @@ const EditPlate = (props) => {
     props.setOpen(false);
   }
   const handleEdit = () => {
-    alert('Edit');
+    props.handleClose();
+    props.navigation.navigate('Form', {url: props.image, path: props.route});
   }
   const handleDelete = () => {
-    alert('Delete');
+    // deleteData(props.id);
   }
 
   return (

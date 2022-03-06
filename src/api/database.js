@@ -55,6 +55,22 @@ export const getDataCount = (setCount) => {
   );
 }
 
+export const deleteData = (id) => {
+  db.transaction(
+    (tx) => {
+       tx.executeSql(
+        "DELETE FROM foods WHERE id = ?;",
+        [id],
+        () => {
+        },
+        () => {
+          console.warn("Delete Error");
+        }
+      );
+    }
+  );
+}
+
 export const getHomeStoryDataSet = (setData) => {
   const dataSet = [];
   db.transaction(

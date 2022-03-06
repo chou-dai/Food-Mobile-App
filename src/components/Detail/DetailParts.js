@@ -81,11 +81,16 @@ const DetailParts = (props) => {
         />
       </View>
       
-      <EditPlate open={moreOpen} setOpen={setMoreOpen}/>
+      <EditPlate navigation={props.navigation} route={props.route}
+        handleClose={props.handleClose}
+        open={moreOpen} setOpen={setMoreOpen}
+        id={props.item.id} image={props.item.url}
+      />
       <ColorChange open={colorOpen} setOpen={setColorOpen}
         which={which} setWhich={setWhich}
         setBgColor={setBgColor} bgColor={bgColor}
-        setTxtColor={setTxtColor} txtColor={txtColor}/>
+        setTxtColor={setTxtColor} txtColor={txtColor}
+      />
  
     </View>
   )

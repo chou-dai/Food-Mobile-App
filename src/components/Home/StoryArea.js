@@ -16,7 +16,7 @@ const StoryArea = (props) => {
 
   const handleNavigation = () => {
     props.setIsCamera(true);
-    props.navigation.navigate('camera');
+    props.navigation.navigate('Camera');
   }
 
   

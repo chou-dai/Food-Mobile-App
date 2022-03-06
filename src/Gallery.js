@@ -15,7 +15,9 @@ const Gallery = (props) => {
     ]}>
       <SearchArea />
       <ListArea navigation={props.navigation} setOpen={setOpen} setId={setId}/>
-      <DetailArea id={id} open={open} setOpen={setOpen} setId={setId} />
+      <DetailArea navigation={props.navigation} route={props.route.name}
+        id={id} open={open} setOpen={setOpen} setId={setId}
+      />
     </View>
   );
 }

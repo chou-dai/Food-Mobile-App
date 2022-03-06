@@ -11,12 +11,14 @@
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/material-bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.8",
+    "@react-navigation/stack": "^6.1.1",
     "expo": "~43.0.0",
     "expo-camera": "~12.0.3",
     "expo-fast-image": "^1.1.3",
     "expo-file-system": "~13.0.3",
     "expo-haptics": "~11.0.3",
     "expo-image-manipulator": "~10.1.2",
+    "expo-image-picker": "~11.0.3",
     "expo-linear-gradient": "~10.0.3",
     "expo-media-library": "~13.0.3",
     "expo-sqlite": "~10.0.3",
@@ -34,6 +36,7 @@
     "react-native-modal": "^12.1.0",
     "react-native-paper": "^4.9.2",
     "react-native-radio-buttons": "^1.0.0",
+    "react-native-ratings": "^8.1.0",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-simple-dialogs": "^1.4.0",
@@ -43,8 +46,7 @@
     "react-native-switch-selector": "^2.1.4",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "0.17.1",
-    "react-native-wheel-color-picker": "^1.2.0",
-    "expo-image-picker": "~11.0.3"
+    "react-native-wheel-color-picker": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

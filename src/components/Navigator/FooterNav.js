@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -33,110 +32,108 @@ const FooterNav = (props) => {
   }, [isCamera]);
 
   return (
-    <NavigationContainer>
-		  <Tab.Navigator
-        initialRouteName='home'
-        screenOptions={{
-          tabBarActiveTintColor: props.theme.colors.main,
-          tabBarActiveBackgroundColor: props.theme.colors.base,
-          tabBarInactiveBackgroundColor: props.theme.colors.base,
-          tabBarStyle: {
-            backgroundColor: props.theme.colors.base,
-            borderTopWidth: 0,
-            shadowColor: '#000000',
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.9,
-            shadowRadius: 3,
-          },
-          headerShown: false,
-          tabBarShowLabel: false,
+		<Tab.Navigator
+      initialRouteName='Home'
+      screenOptions={{
+        tabBarActiveTintColor: props.theme.colors.main,
+        tabBarActiveBackgroundColor: props.theme.colors.base,
+        tabBarInactiveBackgroundColor: props.theme.colors.base,
+        tabBarStyle: {
+          backgroundColor: props.theme.colors.base,
+          borderTopWidth: 0,
+          shadowColor: '#000000',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.9,
+          shadowRadius: 3,
+        },
+        headerShown: false,
+        tabBarShowLabel: false,
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        listeners={{tabPress: () => setIsCamera(false)}}
+        options={{
+          tabBarLabel: 'ホーム',
+          tabBarIcon: ({ color }) => (
+            <Entypo name="home"
+              style={{
+                fontSize: 25,
+                color: color
+              }}
+            />
+          )
         }}
-      >
-        <Tab.Screen
-          name="home"
-          listeners={{tabPress: () => setIsCamera(false)}}
-          options={{
-            tabBarLabel: 'ホーム',
-            tabBarIcon: ({ color }) => (
-              <Entypo name="home"
-                style={{
-                  fontSize: 25,
-                  color: color
-                }}
-              />
-            )
-          }}
-        >{(props) => <Home setIsCamera={setIsCamera} {...props}/>}</Tab.Screen>
-        <Tab.Screen
-          name="calendar" component={ Calendar }
-          listeners={{tabPress: () => setIsCamera(false)}}
-          options={{
-            tabBarLabel: 'カレンダー',
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="calendar-sharp"
-                style={{
-                  fontSize: 25,
-                  color: color
-                }}
-              />
-            )
-          }}
-        />
-        <Tab.Screen
-          name="camera" component={ CameraScreen }
-          options = {({ navigation }) => ({
-            tabBarLabel: 'カメラ',
-            tabBarButton: () => (
-              <View style={styles.shadow}>
-                <LinearGradient
-                  colors={['rgba(240,152,25,1)', 'rgba(255,88,88,1)']} 
-                  start={{x: 0.0, y: 1}} 
-                  end={{x: 1, y: 1}}
-                  style={[styles.linearGradient, {top: top, opacity: opacity}]}
-                >
-                  <FAB style={styles.fab} icon="camera" color="#ddd"
-                    onPress={() => {
-                      navigation.navigate('camera');
-                      setIsCamera(true)
-                    }}
-                  />
-                </LinearGradient>
-              </View>
-            )
-          })}
-        />
-        <Tab.Screen
-          name="gallery" component={ Gallery }
-          listeners={{tabPress: () => setIsCamera(false)}}
-          options={{
-            tabBarLabel: 'ギャラリー',
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="apps-sharp"
-                style={{
-                  fontSize: 25,
-                  color: color,
-                }}
-              />
-            )
-          }}
-        />
-        <Tab.Screen
-          name="setting" component={ Setting }
-          listeners={{tabPress: () => setIsCamera(false)}}
-          options={{
-            tabBarLabel: '設定',
-            tabBarIcon: ({ color }) => (
-              <MaterialIcons name="settings"
-                style={{
-                  fontSize: 25,
-                  color: color
-                }}
-              />
-            )
-          }}
-        />
-      </Tab.Navigator>
-		</NavigationContainer>
+      >{(props) => <Home setIsCamera={setIsCamera} {...props}/>}</Tab.Screen>
+      <Tab.Screen
+        name="Calendar" component={ Calendar }
+        listeners={{tabPress: () => setIsCamera(false)}}
+        options={{
+          tabBarLabel: 'カレンダー',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="calendar-sharp"
+              style={{
+                fontSize: 25,
+                color: color
+              }}
+            />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Camera" component={ CameraScreen }
+        options = {({ navigation }) => ({
+          tabBarLabel: 'カメラ',
+          tabBarButton: () => (
+            <View style={styles.shadow}>
+              <LinearGradient
+                colors={['rgba(240,152,25,1)', 'rgba(255,88,88,1)']} 
+                start={{x: 0.0, y: 1}} 
+                end={{x: 1, y: 1}}
+                style={[styles.linearGradient, {top: top, opacity: opacity}]}
+              >
+                <FAB style={styles.fab} icon="camera" color="#ddd"
+                  onPress={() => {
+                    navigation.navigate('Camera');
+                    setIsCamera(true)
+                  }}
+                />
+              </LinearGradient>
+            </View>
+          )
+        })}
+      />
+      <Tab.Screen
+        name="Gallery" component={ Gallery }
+        listeners={{tabPress: () => setIsCamera(false)}}
+        options={{
+          tabBarLabel: 'ギャラリー',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="apps-sharp"
+              style={{
+                fontSize: 25,
+                color: color,
+              }}
+            />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Setting" component={ Setting }
+        listeners={{tabPress: () => setIsCamera(false)}}
+        options={{
+          tabBarLabel: '設定',
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="settings"
+              style={{
+                fontSize: 25,
+                color: color
+              }}
+            />
+          )
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 

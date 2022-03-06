@@ -14,7 +14,7 @@ const CardArea = (props) => {
   }, [props.navigation]);
 
   const handleNavigation = () => {
-    props.navigation.navigate('gallery');
+    props.navigation.navigate('Gallery');
   }
 
   return (

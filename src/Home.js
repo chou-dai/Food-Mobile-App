@@ -28,7 +28,9 @@ const Home = (props) => {
         <CardArea navigation={props.navigation} setOpen={setOpen} setId={setId}/>
         <HomeCalendarArea navigation={props.navigation} />
       </Animated.ScrollView>
-      <DetailArea id={id} open={open} setOpen={setOpen} setId={setId} />
+      <DetailArea navigation={props.navigation} route={props.route.name}
+        id={id} open={open} setOpen={setOpen} setId={setId}
+      />
     </View>
   );
 }

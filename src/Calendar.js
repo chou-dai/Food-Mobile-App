@@ -16,7 +16,9 @@ const Calendar = (props) => {
     ]}>
       <CalendarArea navigation={props.navigation} setDate={setDate}/>
       <ColumnArea navigation={props.navigation} date={date} setOpen={setOpen} setId={setId}/>
-      <DetailArea id={id} open={open} setOpen={setOpen} setId={setId} />
+      <DetailArea navigation={props.navigation} route={props.route.name}
+        id={id} open={open} setOpen={setOpen} setId={setId}
+      />
     </View>
   );
 }
