@@ -11,8 +11,8 @@ const HeadArea = (props) => {
 
   return (
     <SafeAreaView style={{width: '100%'}}>
-      <View style={{display: 'flex', flexDirection:'row'}}>
-        <Button title='キャンセル' onPress={handleNavigation} />
+      <View style={{display: 'flex', paddingVertical: 5, flexDirection:'row'}}>
+        <Button title='<  キャンセル' onPress={handleNavigation}/>
       </View>
     </SafeAreaView>
   )

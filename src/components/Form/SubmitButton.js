@@ -1,15 +1,24 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, SafeAreaView, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { withTheme } from 'react-native-elements';
 
 
 const SubmitButton = (props) => {
+  const handlePress = () => {
+    if(!props.title) {
+      props.setError(true);
+    }
+  }
+
+  useEffect(() => {
+    props.setError(false);
+  }, [props.title]);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.buttonContainer, {backgroundColor: props.theme.colors.base}]}>
-        <TouchableOpacity activeOpacity={0.6}>
+        <TouchableOpacity activeOpacity={0.6} onPress={handlePress}>
           <LinearGradient style={styles.linearGradient}
             colors={['rgba(240,152,25,1)', 'rgba(255,88,88,1)']} 
             start={{x: 0.0, y: 1}} 

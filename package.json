@@ -32,6 +32,7 @@
     "react-native-fast-image": "^8.5.11",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-insta-story": "^1.1.6",
+    "react-native-material-menu": "^2.0.0",
     "react-native-material-ripple": "^0.9.1",
     "react-native-modal": "^12.1.0",
     "react-native-paper": "^4.9.2",

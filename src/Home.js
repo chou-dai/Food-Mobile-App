@@ -8,7 +8,7 @@ const Home = (props) => {
   const [scrollY, setScrollY] = useState(0);
   const [open, setOpen] = useState(false);
   const [id, setId] = useState(null);
-  
+
   return (
     <View style ={[
       styles.container,

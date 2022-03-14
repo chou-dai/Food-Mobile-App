@@ -1,14 +1,27 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { withTheme } from 'react-native-elements';
+import React, { useEffect, useState } from 'react';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { withTheme, ThemeProvider } from 'react-native-elements';
 
 const Setting = (props) => {
+  const [dark, setDark] = useState(true);
+
+  const handleDark = () => {
+    setDark(!dark);
+  }
+
+  useEffect(() => {
+    props.updateTheme({colors: {primary: '#ffffff'}})
+    console.log(props.theme);
+  },[dark])
+
   return (
     <View style={[
       styles.container,
       {backgroundColor: props.theme.colors.base}
     ]}>
-      <Text style={ styles.text }>設定</Text>
+      <TouchableOpacity onPress={handleDark}>
+        <Text style={ styles.text }>{dark ? 'Dark':'Light'}</Text>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Dimensions, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { withTheme } from 'react-native-elements';
 import ColorPicker from 'react-native-wheel-color-picker';
 import Modal from 'react-native-modal';

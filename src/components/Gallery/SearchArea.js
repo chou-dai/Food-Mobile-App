@@ -1,9 +1,11 @@
-import React from 'react';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import { withTheme } from 'react-native-elements';
 import { Searchbar } from 'react-native-paper';
+import FilterMenu from './FilterMenu';
 
 const SearchArea = (props) => {
+  const [visible, setVisible] = useState(false);
 
   return (
     <View style={[
@@ -12,6 +14,9 @@ const SearchArea = (props) => {
     ]}>
       <SafeAreaView style={styles.safeArea}>
         <Searchbar style={styles.search}/>
+        <View style={styles.filter}>
+          <FilterMenu visible={visible} setVisible={setVisible} />
+        </View>
       </SafeAreaView >
     </View>
   )
@@ -24,11 +29,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  safeArea: {
+    flexDirection: 'row'
+  },
   search: {
     marginTop: 8,
+    flex: 1,
     height: 35,
-    width: '100%',
     backgroundColor: 'gray'
+  },
+  filter: {
+    height: 35,
+    width: 35,
+    marginLeft: 5,
+    marginTop: 8,
+    height: 35,
+    borderRadius: 3,
+    overflow: 'hidden',
+    backgroundColor: 'gray',
   }
 });
 

@@ -17,12 +17,12 @@ export default window.onload = function CameraScreen(props) {
   const [camera, setCamera] = useState(null);
   const [picture, setPicture] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } = await Camera.requestPermissionsAsync();
+  //     setHasPermission(status === 'granted');
+  //   })();
+  // }, []);
 
   const handleType = () => {
     setType(
@@ -55,9 +55,10 @@ export default window.onload = function CameraScreen(props) {
       const id = Array.from(Array(N)).map(()=>S[Math.floor(Math.random()*S.length)]).join('')
 
       const date = new Date();
-      const isPressed = 0;
       const today = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
                     + "-" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds();
+      
+      const isPressed = 0;
       
       const smallImage = await resizeImage(image.uri, 300);
       const mediumImage = await resizeImage(image.uri, 800);
