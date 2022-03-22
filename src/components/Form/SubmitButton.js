@@ -2,12 +2,17 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect } from 'react';
 import { StyleSheet, View, SafeAreaView, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { withTheme } from 'react-native-elements';
+import * as Haptics from 'expo-haptics';
 
 
 const SubmitButton = (props) => {
   const handlePress = () => {
     if(!props.title) {
       props.setError(true);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+    } else {
+      props.handleStore();
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     }
   }
 
