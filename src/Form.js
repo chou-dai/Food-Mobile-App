@@ -16,7 +16,7 @@ const Form = (props) => {
   return (
     <View style ={[styles.container, {backgroundColor: props.theme.colors.base}]}>
       <HeadArea navigation={props.navigation} path={path} />
-      <InputArea picture={picture} />
+      <InputArea picture={picture} navigation={props.navigation} />
     </View>
   );
 }

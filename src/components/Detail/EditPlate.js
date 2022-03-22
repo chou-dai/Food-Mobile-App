@@ -11,8 +11,8 @@ const EditPlate = (props) => {
     props.setOpen(false);
   }
   const handleEdit = () => {
-    props.handleClose();
-    props.navigation.navigate('Form', {url: props.image, path: props.route});
+    // props.handleClose();
+    // props.navigation.navigate('Form', {url: props.image, path: props.route});
   }
   const handleDelete = () => {
     // deleteData(props.id);

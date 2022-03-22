@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Alert } from 'react-native';
 import { withTheme } from 'react-native-elements';
 import SubmitButton from './SubmitButton';
 import InputRating from './InputRating';
 import InputImage from './InputImage';
 import InputText from './InputText';
 import InputDate from './InputDate';
+import * as ImageManipulator from 'expo-image-manipulator';
+import { firstSaveDatabase } from '../../api/database';
+import * as Haptics from 'expo-haptics';
 
 
 const InputArea = (props) => {
@@ -15,8 +18,44 @@ const InputArea = (props) => {
   const [memo, setMemo] = useState(null);
   const [error, setError] = useState(false);
 
-  const handleStore = () => {
-    console.log('test');
+  const resizeImage = async (imageUri, width) => {
+    const result = await ImageManipulator.manipulateAsync(
+      imageUri,
+      // width or height のみの場合は、アスペクトを保持したままリサイズする
+      [{ resize: { width: width } }],
+      {
+        compress: 0.1,
+        format: ImageManipulator.SaveFormat.PNG,
+      }
+    );
+    return result.uri;
+  };
+
+  const handleStore = async() => {
+    const S="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    const N=16
+    const id = Array.from(Array(N)).map(()=>S[Math.floor(Math.random()*S.length)]).join('')
+
+    const date = new Date();
+    const today = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
+                  + "-" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds();
+    
+    const isPressed = 0;
+    
+    const smallImage = await resizeImage(props.picture.uri, 300);
+    const mediumImage = await resizeImage(props.picture.uri, 800);
+    const largeImage = await resizeImage(props.picture.uri, 400);
+
+    firstSaveDatabase(id, isPressed, smallImage, mediumImage, largeImage, today);
+
+    Alert.alert(
+      'Alert',
+      title + ' 保存完了',
+      [
+        {text: 'OK', onPress: () => props.navigation.navigate('Home')},
+      ],
+      { cancelable: false }
+    )
   }
  
   return (
