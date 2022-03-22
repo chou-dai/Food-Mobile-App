@@ -15,6 +15,10 @@ const InputArea = (props) => {
   const [memo, setMemo] = useState(null);
   const [error, setError] = useState(false);
 
+  const handleStore = () => {
+    
+  }
+ 
   return (
     <View style={{width: '100%', flex: 1}}>
       <ScrollView>
@@ -40,7 +44,7 @@ const InputArea = (props) => {
           />
         </View>
       </ScrollView>
-      <SubmitButton title={title} setError={setError} />
+      <SubmitButton title={title} setError={setError} handleStore={handleStore} />
     </View>
   )
 }
