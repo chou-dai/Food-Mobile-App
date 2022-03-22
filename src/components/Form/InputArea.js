@@ -16,7 +16,7 @@ const InputArea = (props) => {
   const [error, setError] = useState(false);
 
   const handleStore = () => {
-    console.log('c');
+    console.log('d');
   }
  
   return (
