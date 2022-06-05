@@ -10,10 +10,16 @@ ReactNativeを用いて開発
 
 <div style="display:flex">
   
-  <img src="https://user-images.githubusercontent.com/89395132/170614685-2c707f46-b1cf-4233-a5ca-d80b1aed300b.png" width="200px"/>
-
-  <img src="https://user-images.githubusercontent.com/89395132/170614662-1630eaf7-2c58-40d9-9f5e-dc778cc39f32.png" width="200px"/>
-
-  <img src="https://user-images.githubusercontent.com/89395132/170614703-c2c15b7a-9e86-4472-a3fa-59ec1556b1d4.png" width="200px"/>
+  <img src="https://user-images.githubusercontent.com/89395132/172054182-8aef5f80-80c1-4cae-a8d3-ffeb9dbc67d8.PNG" width="250px"/>
+  
+  <img src="https://user-images.githubusercontent.com/89395132/172054235-fe519f93-daa5-46c5-a3c1-a7d2bf4d967e.PNG" width="250px"/>
+  
+  <img src="https://user-images.githubusercontent.com/89395132/172054241-e6cd0819-de40-4685-a316-9503ce91024e.PNG" width="250px"/>
+  
+  
+  
+  <img src="https://user-images.githubusercontent.com/89395132/172054243-0b432b84-649b-4653-be2a-5ab8abdf8739.PNG" width="250px"/>
+  
+  <img src="https://user-images.githubusercontent.com/89395132/172054222-ab3b0340-4669-4bf6-a5f3-68b1261dacc5.PNG" width="250px"/>
   
 </div>
