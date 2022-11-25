@@ -1,4 +1,4 @@
-# food-mobile-app
+# Food Mobile App
 
 ## 概要
 
